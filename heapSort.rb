@@ -1,13 +1,13 @@
 def heapify(arr, n, i)
   largest = i
   l = 2 * i + 1
-  r = l + 1
+  r = 2 * i + 2
 
-  if l < n && arr[i] < arr[l]
+  if l < n && arr[largest] < arr[l]
     largest = l
   end
 
-  if r < n && arr[i] < arr[r]
+  if r < n && arr[largest] < arr[r]
     largest = r
   end
 
@@ -20,14 +20,13 @@ end
 
 def heapSort(arr)
   n = arr.size
-  i = n
 
   # generate max heap first
-  ((n - 2) / 2).downto(0) {|i| heapify(arr, n - 1, i)}
+  (((n - 2) / 2) - 1).downto(0) {|i| heapify(arr, n, i)}
 
-  (n - 1).downto(1) do |i|
+  (n - 1).downto(1).each do |i|
     arr[i], arr[0] = arr[0], arr[i]
-    heapify(arr, i - 1, 0)
+    heapify(arr, i, 0)
   end
 
   arr
