@@ -3,7 +3,7 @@ class Node
 end
 
 # recursive
-def postOrderRecur(root)
+def preOrderRecur(root)
   results = []
   helper(root, results)
 
@@ -13,26 +13,25 @@ end
 def helper(node, results)
   return if !node
 
+  results << node.val
   helper(node.left, results)
   helper(node.right, results)
-
-  results << node.val
 end
 
 # iterative
-def postOrderIter(root)
-  stack = []
-  stack << [root, 'start']
+def preOrderIter(root)
+  queue = []
+  queue << [root, 'start']
   results = []
 
-  while(stack.length > 0)
-    node, label = stack.pop
+  while(queue.length > 0)
+    node, label = queue.shift
     if !node
       next
     elsif label != 'current'
-      stack << [node, 'current']
-      stack << [node.right, 'right']
-      stack << [node.left, 'left']
+      queue << [node, 'current']
+      queue << [node.left, 'left']
+      queue << [node.right, 'right']
 
     elsif label == 'current'
       results << node.val
